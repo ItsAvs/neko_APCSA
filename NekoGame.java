@@ -3,12 +3,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class nekoGame {
+public class NekoGame {
 
     private JFrame frame;
 
     // Constructor to initialize the game
-    public nekoGame() {
+    public NekoGame() {
         initializeFrame();
         showStartScreen();
     }
@@ -94,6 +94,6 @@ public class nekoGame {
 
         // Main method to run the game
         public static void main(String[] args) {
-        new nekoGame();
+        new NekoGame();
         }
         }

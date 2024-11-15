@@ -7,14 +7,14 @@ import java.awt.event.KeyListener;
 /*
  * The abstract class that all character including enemies extend to have basic functions. 
  */
-public abstract class nekoCharacter {
+public abstract class NekoCharacter {
     private int currentHealth;
     private int powerBar = 0;
     private String name = "";
     private int xPosition;
     private int yPosition;
 
-    public nekoCharacter (String characterName, int maxHealth, int xPosition, int yPosition){
+    public NekoCharacter (String characterName, int maxHealth, int xPosition, int yPosition){
         currentHealth = maxHealth;
         name = characterName;
         this.xPosition = xPosition;
