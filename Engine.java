@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Engine {
 
@@ -35,7 +36,7 @@ public class Engine {
     }
 
     private boolean isActionDone(ActionListener e){
-        return e.getKeyCode() == KeyEvent.VK_ENTER;
+        return e.actionPerformed(null) == KeyEvent.VK_ENTER;
         
     }
 }
