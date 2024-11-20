@@ -1,1 +1,7 @@
-//use engine class to create start screen 
+public class NekoGame {
+    
+    public NekoGame(){
+
+    }
+
+}

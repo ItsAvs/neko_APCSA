@@ -34,6 +34,14 @@ public class Engine {
 
     }
 
+    //Displays text for power, health and more
+    private void displayText(String text){
+        JLabel label=new JLabel();
+		label.setBounds(0,0,500,50);
+		frame.add(label);
+		label.setText(text);
+		frame.setVisible(true);
+    }
     //checks if enter clicked
     private boolean isActionDone(KeyEvent e){
         return e.getKeyCode() == KeyEvent.VK_ENTER;

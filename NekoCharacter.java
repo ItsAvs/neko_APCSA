@@ -29,26 +29,6 @@ public abstract class NekoCharacter {
 
    }
 
-   //all characters basic movement
-   void characterControls(KeyEvent event){
-    if (event.getKeyCode() == KeyEvent.VK_UP){
-
-    }
-
-    if (event.getKeyCode() == KeyEvent.VK_DOWN){
-
-    }
-
-    if (event.getKeyCode() == KeyEvent.VK_RIGHT){
-
-    }
-
-    if (event.getKeyCode() == KeyEvent.VK_LEFT){
-
-    }
-
-   }
-
    //character can increase current health 
    void heal(int increaseHealth){
     this.currentHealth += increaseHealth;
