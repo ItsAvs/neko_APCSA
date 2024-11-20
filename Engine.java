@@ -24,7 +24,7 @@ public class Engine {
     }
 
     //display images for backgrounds
-    private void displayScreen(String file){
+    public void displayScreen(String file){
         frame.setSize(length, width);  
         ImageIcon image = new ImageIcon(file);
         frame.add(new JLabel(image));
@@ -35,7 +35,7 @@ public class Engine {
     }
 
     //Displays text for power, health and more
-    private void displayText(String text){
+    public void displayText(String text){
         JLabel label=new JLabel();
 		label.setBounds(0,0,500,50);
 		frame.add(label);
