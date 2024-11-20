@@ -1,4 +1,4 @@
-public class Winston extends NekoFighter {
+public class Winston extends NekoCharacter {
     private int xPosition;
     private int yPosition;
 
