@@ -1,11 +1,7 @@
 public class Winston extends NekoCharacter {
-    private int xPosition;
-    private int yPosition;
 
-    public Winston(String characterName, int maxHealth, int attackPower, int xPosition, int yPosition) {
+    public Winston(String characterName, int maxHealth, int attackPower) {
         super(characterName, maxHealth, attackPower);
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
     }
 
     @Override
