@@ -16,7 +16,7 @@ public class Engine {
 
     // Initialize the main frame
     private void initializeFrame() {
-        frame = new JFrame("Game");
+        frame = new JFrame("Neko Cat");
         frame.setSize(length, width);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
@@ -24,7 +24,6 @@ public class Engine {
     }
 
     //display images for backgrounds
-
     private void displayScreen(String file){
         frame.setSize(length, width);  
         ImageIcon image = new ImageIcon(file);
@@ -35,8 +34,9 @@ public class Engine {
 
     }
 
-    private boolean isActionDone(ActionListener e){
-        return e.actionPerformed(null) == KeyEvent.VK_ENTER;
+    //checks if enter clicked
+    private boolean isActionDone(KeyEvent e){
+        return e.getKeyCode() == KeyEvent.VK_ENTER;
         
     }
 }
