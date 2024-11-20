@@ -11,14 +11,11 @@ public abstract class NekoCharacter {
     private int currentHealth;
     private int powerBar = 0;
     private String name = "";
-    private int xPosition;
-    private int yPosition;
 
-    public NekoCharacter (String characterName, int maxHealth, int xPosition, int yPosition){
+    public NekoCharacter (String characterName, int maxHealth){
         currentHealth = maxHealth;
         name = characterName;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+
    } 
 
    //Visual printed element that is displayed at xPosition and yPostion

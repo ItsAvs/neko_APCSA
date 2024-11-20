@@ -37,6 +37,6 @@ public class Engine {
     //checks if enter clicked
     private boolean isActionDone(KeyEvent e){
         return e.getKeyCode() == KeyEvent.VK_ENTER;
-        
+
     }
 }
