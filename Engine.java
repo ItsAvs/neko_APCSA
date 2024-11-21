@@ -3,8 +3,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Engine {
+public class Engine implements KeyListener{
 
     private JFrame frame;
     private int length = 1024;
@@ -17,6 +18,7 @@ public class Engine {
     // Initialize the main frame
     private void initializeFrame() {
         frame = new JFrame("Neko Cat");
+        frame.addKeyListener(this);
         frame.setSize(length, width);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
@@ -42,9 +44,17 @@ public class Engine {
 		label.setText(text);
 		frame.setVisible(true);
     }
-    //checks if enter clicked
-    private boolean isActionDone(KeyEvent e){
-        return e.getKeyCode() == KeyEvent.VK_ENTER;
 
+
+    public void keyTyped(KeyEvent e) { }
+
+      /** Handle the key-pressed event from the text field. */
+      public void keyPressed(KeyEvent e) { }
+
+    /** Handle the key-released event from the text field. */
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER){
+            System.out.println("event enter pressed");
+        }
     }
 }
