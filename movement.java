@@ -1,94 +1,95 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class OptimizedEngineWithDiagonalMovement implements KeyListener {
+public class AdvancedPlatformerWithBackground extends JPanel implements ActionListener, KeyListener {
+    private int playerX = 50;
+    private int playerY = 300;
+    private int playerWidth = 50;
+    private int playerHeight = 50;
+    private int velocityY = 0;
+    private boolean isJumping = false;
+    private Timer timer;
+    private int horizontalVelocity = 0;
+    private final int ACCELERATION = 3;
+    private final int FRICTION = 2;
+    private final int MAX_VELOCITY = 25;
+    private Image background;
 
-    private JFrame frame;
-    private int length = 1024;
-    private int width = 768;
-    private int xPosition = 100; // Initial x position
-    private int yPosition = 100; // Initial y position
-    private JLabel characterLabel;
-    private boolean upPressed, downPressed, leftPressed, rightPressed;
-
-    public OptimizedEngineWithDiagonalMovement() {
-        initializeFrame();
-        initializeCharacter();
+    public AdvancedPlatformerWithBackground() {
+        background = new ImageIcon("C:\\Users\\800025088\\Downloads\\character.png").getImage(); // Load background image
+        timer = new Timer(20, this);
+        timer.start();
+        setFocusable(true);
+        addKeyListener(this);
     }
 
-    // Initialize the main frame
-    private void initializeFrame() {
-        frame = new JFrame("Neko Cat Optimized");
-        frame.setSize(length, width);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // Center the window
-        frame.setLayout(null);
-        frame.addKeyListener(this);
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(background, 0, 0, getWidth(), getHeight(), this); // Draw background
+        g.setColor(Color.YELLOW);
+        g.fillRect(playerX, playerY, playerWidth, playerHeight);
     }
 
-    // Initialize character representation
-    private void initializeCharacter() {
-        characterLabel = new JLabel(new ImageIcon("C:\\Users\\800025088\\Downloads\\character.png")); // Predetermined file path
-        characterLabel.setBounds(xPosition, yPosition, 50, 50); // Set initial position and size
-        frame.add(characterLabel);
-        frame.setVisible(true);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (isJumping) {
+            velocityY += 1; // Gravity effect
+            playerX += horizontalVelocity;
+            playerY += velocityY;
+            if (playerY >= 300) { // Ground level
+                playerY = 300;
+                isJumping = false;
+                velocityY = 0;
+            }
+        }
+        playerX += horizontalVelocity;
+        applyFriction();
+        repaint();
     }
 
-    // Handle key events for movement with boundary checks
+    private void applyFriction() {
+        if (horizontalVelocity > 0) {
+            horizontalVelocity = Math.max(horizontalVelocity - FRICTION, 0);
+        } else if (horizontalVelocity < 0) {
+            horizontalVelocity = Math.min(horizontalVelocity + FRICTION, 0);
+        }
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP: upPressed = true; break;
-            case KeyEvent.VK_DOWN: downPressed = true; break;
-            case KeyEvent.VK_LEFT: leftPressed = true; break;
-            case KeyEvent.VK_RIGHT: rightPressed = true; break;
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            horizontalVelocity = Math.max(horizontalVelocity - ACCELERATION, -MAX_VELOCITY);
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            horizontalVelocity = Math.min(horizontalVelocity + ACCELERATION, MAX_VELOCITY);
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (!isJumping) {
+                isJumping = true;
+                velocityY = -12; // Increased jump velocity
+            }
         }
-        updatePosition();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_UP: upPressed = false; break;
-            case KeyEvent.VK_DOWN: downPressed = false; break;
-            case KeyEvent.VK_LEFT: leftPressed = false; break;
-            case KeyEvent.VK_RIGHT: rightPressed = false; break;
+        if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            horizontalVelocity = horizontalVelocity; // Stop horizontal movement
         }
     }
 
     @Override
     public void keyTyped(KeyEvent e) {}
 
-    private void updatePosition() {
-        int moveAmount = 5; // Movement increment
-        if (upPressed && yPosition > 0) yPosition -= moveAmount; // Move up
-        if (downPressed && yPosition < width - 50) yPosition += moveAmount; // Move down
-        if (leftPressed && xPosition > 0) xPosition -= moveAmount; // Move left
-        if (rightPressed && xPosition < length - 50) xPosition += moveAmount; // Move right
-
-        // Diagonal movement
-        if (upPressed && leftPressed && xPosition > 0 && yPosition > 0) {
-            xPosition -= moveAmount;
-            yPosition -= moveAmount; // Move diagonally up-left
-        }
-        if (upPressed && rightPressed && xPosition < length - 50 && yPosition > 0) {
-            xPosition += moveAmount;
-            yPosition -= moveAmount; // Move diagonally up-right
-        }
-        if (downPressed && leftPressed && xPosition > 0 && yPosition < width - 50) {
-            xPosition -= moveAmount;
-            yPosition += moveAmount; // Move diagonally down-left
-        }
-        if (downPressed && rightPressed && xPosition < length - 50 && yPosition < width - 50) {
-            xPosition += moveAmount;
-            yPosition += moveAmount; // Move diagonally down-right
-        }
-
-        characterLabel.setBounds(xPosition, yPosition, 50, 50); // Update character position
-    }
-
     public static void main(String[] args) {
-        new OptimizedEngineWithDiagonalMovement();
+        JFrame frame = new JFrame("Advanced 2D Platformer with Background");
+        AdvancedPlatformerWithBackground game = new AdvancedPlatformerWithBackground();
+        frame.add(game);
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
