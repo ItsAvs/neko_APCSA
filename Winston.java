@@ -1,7 +1,12 @@
-public class Winston extends NekoCharacter {
+public class Winston {
+    private String characterName;
+    private int maxHealth;
+
 
     public Winston(String characterName, int maxHealth) {
-        super(characterName, maxHealth);
+        this.characterName = characterName;
+        this.maxHealth = maxHealth;
+        //example for brandon ...
 
     }
 
