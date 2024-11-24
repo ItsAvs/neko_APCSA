@@ -1,3 +1,5 @@
+//Handles the cooldown for abiltiies
+
 public class Ability {
     private String name;
     private int damage;
