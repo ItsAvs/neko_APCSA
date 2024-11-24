@@ -1,15 +1,17 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.*;
 
 public class Engine implements KeyListener{
 
     private JFrame frame;
-    private int length = 1024;
-    private int width = 768;
+    private JLabel textLabel;
+    private JLabel backgroundLabel;
+    private final int length = 1024;
+    private final int width = 768;
+
+
     public Engine (){
         initializeFrame();
     }
@@ -23,6 +25,20 @@ public class Engine implements KeyListener{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
         frame.setLayout(new BorderLayout());
+
+        // Add the background label
+        backgroundLabel = new JLabel();
+        backgroundLabel.setBounds(0, 0, length, width);
+        frame.add(backgroundLabel);
+
+        // Add the text label
+        textLabel = new JLabel();
+        textLabel.setBounds(50, 10, 240, 30);
+        textLabel.setForeground(Color.BLUE);
+        textLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        frame.add(textLabel);
+
+        frame.setVisible(true); 
     }
 
     //display images for backgrounds
@@ -38,11 +54,8 @@ public class Engine implements KeyListener{
 
     //Displays text for power, health and more
     public void displayText(String text){
-        JLabel label=new JLabel();
-		label.setBounds(0,0,500,50);
-		frame.add(label);
-		label.setText(text);
-		frame.setVisible(true);
+        textLabel.setText(text); // Update the existing text label
+        frame.repaint(); // Ensure updates are visible
     }
 
 
