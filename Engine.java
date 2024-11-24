@@ -6,7 +6,7 @@ public class Engine implements KeyListener {
 
     private JFrame frame;
     private JLabel textLabel;
-    private int lastPressedKey = -1; 
+    private boolean enterPressed = false; // Track if Enter was pressed
     private BackgroundPanel backgroundPanel;
     private final int initialLength = 1024;
     private final int initialWidth = 768;
@@ -17,7 +17,7 @@ public class Engine implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // You can handle other key releases here if needed
     }
 
     // Custom panel to handle scaling the background image
@@ -91,28 +91,39 @@ public class Engine implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        lastPressedKey = e.getKeyCode(); // Store the last pressed key
+        // When Enter is pressed, set the flag to true
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            enterPressed = true;
+        }
     }
 
-    // Method to get the last pressed key
-     public int getLastPressedKey() {
-        return lastPressedKey;
+    // Method to check if Enter was pressed
+    public boolean isEnterPressed() {
+        return enterPressed;
     }
 
-    public void isEnterPressed(){
-        int key;
+    // Reset the Enter pressed flag
+    public void resetEnterPressed() {
+        enterPressed = false;
+    }
+
+    // Main game loop or logic for checking Enter press
+    public void startKeyCheckLoop() {
         while (true) {
-            key = getLastPressedKey(); 
-            if (key != -1 && KeyEvent.getKeyText(key).equals(KeyEvent.VK_ENTER)) { 
+            if (isEnterPressed()) {
                 System.out.println("Enter pressed");
+                resetEnterPressed(); // Reset after checking
+                return;
             }
 
             try {
-                Thread.sleep(100); // Add a small delay to avoid busy-waiting (100ms)
+                Thread.sleep(100); // Delay to avoid busy-waiting (100ms)
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
-    
 
+    
 }
+
