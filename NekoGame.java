@@ -5,13 +5,16 @@ public class NekoGame {
     private ArrayList<String> moveLogs = new ArrayList<String>();
 
     public NekoGame(){
-        
+
     }
 
-    public static void main(String arg[]){
+     public static void main(String[] args) {
         Engine game = new Engine();
-        game.displayScreen("./imgs/neko.png"); 
-        game.displayText("test");
+        game.displayScreen("./imgs/neko.png");
+        game.isEnterPressed();
+        game.displayText("HIIIIIIIII");
+
+       
 
     }
 

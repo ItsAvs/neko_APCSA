@@ -1,73 +1,118 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import javax.swing.*;
 
-public class Engine implements KeyListener{
+public class Engine implements KeyListener {
 
     private JFrame frame;
     private JLabel textLabel;
-    private JLabel backgroundLabel;
-    private final int length = 1024;
-    private final int width = 768;
+    private int lastPressedKey = -1; 
+    private BackgroundPanel backgroundPanel;
+    private final int initialLength = 1024;
+    private final int initialWidth = 768;
 
-
-    public Engine (){
+    public Engine() {
         initializeFrame();
     }
 
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    // Custom panel to handle scaling the background image
+    private class BackgroundPanel extends JPanel {
+        private Image backgroundImage;
+
+        public void setBackgroundImage(ImageIcon imageIcon) {
+            this.backgroundImage = imageIcon.getImage();
+            repaint(); // Redraw the panel when the image changes
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this); // Scale image
+            }
+        }
+    }
 
     // Initialize the main frame
     private void initializeFrame() {
         frame = new JFrame("Neko Cat");
         frame.addKeyListener(this);
-        frame.setSize(length, width);
+        frame.setSize(initialLength, initialWidth);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Center the window
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(null); // Use absolute positioning
 
-        // Add the background label
-        backgroundLabel = new JLabel();
-        backgroundLabel.setBounds(0, 0, length, width);
-        frame.add(backgroundLabel);
+        // Create and add the background panel
+        backgroundPanel = new BackgroundPanel();
+        backgroundPanel.setBounds(0, 0, initialLength, initialWidth);
+        backgroundPanel.setLayout(null); // Allow components to be added with absolute positioning
+        frame.add(backgroundPanel);
 
         // Add the text label
         textLabel = new JLabel();
-        textLabel.setBounds(50, 10, 240, 30);
-        textLabel.setForeground(Color.BLUE);
+        textLabel.setBounds(10, 10, 300, 30); // Top-left corner
+        textLabel.setForeground(Color.RED);
         textLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        frame.add(textLabel);
+        backgroundPanel.add(textLabel);
 
-        frame.setVisible(true); 
+        // Add a ComponentListener to resize components when the frame is resized
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                // Resize the background and adjust text position if necessary
+                backgroundPanel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+                textLabel.setBounds(10, 10, 300, 30); // Optional: Adjust if you need relative positioning
+                backgroundPanel.repaint();
+            }
+        });
+
+        frame.setVisible(true);
     }
 
-    //display images for backgrounds
-    public void displayScreen(String file){
-        frame.setSize(length, width);  
-        ImageIcon image = new ImageIcon(file);
-        frame.add(new JLabel(image));
-        frame.pack();
-        frame.setVisible(true);  
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-
+    // Display images for backgrounds
+    public void displayScreen(String file) {
+        ImageIcon imageIcon = new ImageIcon(file);
+        backgroundPanel.setBackgroundImage(imageIcon); // Set the background image dynamically
     }
 
-    //Displays text for power, health and more
-    public void displayText(String text){
+    // Displays text for power, health, and more
+    public void displayText(String text) {
         textLabel.setText(text); // Update the existing text label
         frame.repaint(); // Ensure updates are visible
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
-    public void keyTyped(KeyEvent e) { }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        lastPressedKey = e.getKeyCode(); // Store the last pressed key
+    }
 
-      /** Handle the key-pressed event from the text field. */
-      public void keyPressed(KeyEvent e) { }
+    // Method to get the last pressed key
+     public int getLastPressedKey() {
+        return lastPressedKey;
+    }
 
-    /** Handle the key-released event from the text field. */
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER){
-            System.out.println("event enter pressed");
+    public void isEnterPressed(){
+        int key;
+        while (true) {
+            key = getLastPressedKey(); 
+            if (key != -1 && KeyEvent.getKeyText(key).equals(KeyEvent.VK_ENTER)) { 
+                System.out.println("Enter pressed");
+            }
+
+            try {
+                Thread.sleep(100); // Add a small delay to avoid busy-waiting (100ms)
+            } catch (InterruptedException e) {
+            }
         }
     }
+    
+
 }
