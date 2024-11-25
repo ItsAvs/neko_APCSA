@@ -124,6 +124,21 @@ public class Engine implements KeyListener {
         }
     }
 
+    public void turnOccurs(){
+        //Player's turn 
+    }
+
+    //player does their turn
+    private void playerTurn(){
+        /*
+         * certain keypresses trigger certain attacks
+         */
+    }
+
+    private void enemyTurn(){
+
+    }
+
     
 }
 

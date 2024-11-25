@@ -1,8 +1,6 @@
-import java.util.ArrayList;
 
 
 public class NekoGame {
-    private ArrayList<String> moveLogs = new ArrayList<String>();
 
     public NekoGame(){
 
@@ -18,7 +16,12 @@ public class NekoGame {
         Engine game = new Engine();
         game.displayScreen("./imgs/neko.png");
         game.startKeyCheckLoop(); //check if enter pressed
-        game.displayText("damage: 0"); 
+        
+        //display level 
+
+        
+
+
 
        
 
