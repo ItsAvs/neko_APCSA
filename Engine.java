@@ -1,6 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.*;
 import javax.swing.*;
+
 
 public class Engine implements KeyListener {
 
@@ -10,6 +14,7 @@ public class Engine implements KeyListener {
     private BackgroundPanel backgroundPanel;
     private final int initialLength = 1024;
     private final int initialWidth = 768;
+    private Clip audioClip;
 
     public Engine() {
         initializeFrame();
@@ -138,6 +143,79 @@ public class Engine implements KeyListener {
     private void enemyTurn(){
 
     }
+
+    public void playMusic(String filePath, int durationInSeconds, boolean loop) {
+        try {
+            // Load the audio file
+            File audioFile = new File(filePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+    
+            // Get a Clip to play the audio
+            audioClip = AudioSystem.getClip();
+            audioClip.open(audioStream);
+    
+            if (loop) {
+                // Loop continuously
+                audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            } else {
+                // Play once
+                audioClip.loop(0);
+            }
+    
+            // Start playing the audio
+            audioClip.start();
+    
+            // Create a separate thread to stop the audio after the specified duration
+            new Thread(() -> {
+                try {
+                    Thread.sleep(durationInSeconds * 1000); // Convert seconds to milliseconds
+                    audioClip.stop();
+                    audioClip.close(); // Release resources
+                } catch (InterruptedException e) {
+                    System.out.println("Error while stopping the audio.");
+                }
+            }).start();
+    
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println("The specified audio file is not supported.");
+        } catch (IOException e) {
+            System.out.println("Error occurred while playing the audio.");
+        } catch (LineUnavailableException e) {
+            System.out.println("Audio line is unavailable.");
+        }
+    }
+
+    public void stopMusicWithFadeOut(String filePath, int fadeDurationMs) {
+        if (audioClip != null && audioClip.isRunning()) {
+            try {
+                // Get the volume control
+                FloatControl volumeControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+    
+                // Determine the number of steps and volume decrement per step
+                int steps = 50; // Number of fade steps
+                float volumeDecrement = volumeControl.getMaximum() / steps;
+    
+                for (int i = 0; i < steps; i++) {
+                    float newVolume = volumeControl.getValue() - volumeDecrement;
+                    if (newVolume < volumeControl.getMinimum()) {
+                        newVolume = volumeControl.getMinimum(); // Ensure volume doesn't go below the minimum
+                    }
+                    volumeControl.setValue(newVolume);
+    
+                    // Pause between steps to create the fade effect
+                    Thread.sleep(fadeDurationMs / steps);
+                }
+    
+                // Stop and close the clip after the fade-out
+                audioClip.stop();
+                audioClip.close();
+            } catch (Exception e) {
+                System.out.println("Error during fade-out: " + e.getMessage());
+            }
+        }
+    }
+    
+    
 
     
 }
