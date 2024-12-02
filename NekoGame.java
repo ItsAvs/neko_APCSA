@@ -20,7 +20,7 @@ public class NekoGame {
         game.stopMusicWithFadeOut("./audios/konekonoosanpo.wav", 500);
 
         //First cutscene: introduction to cafe
-        game.displayScreen("./imgs/screen1.png");
+        game.displayScreen("./imgs/screen1.gif");
         game.playMusic("./audios/cut_scenes.wav", 120, true);
 
         
