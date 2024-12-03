@@ -1,20 +1,30 @@
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
+import javax.swing.*;
 
+public class Player extends Enemy {
 
-Public class Player extends Enemy{
+    private boolean enterPressed = false;
+    private JFrame frame; // Frame to handle key events
 
     public Player(String name, int health, ArrayList<Ability> abilities) {
         super(name, health);
+        this.abilities = abilities; // Assuming abilities is declared in the Enemy class
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
         addAbility("Pounce", 0, 10, 0, 0.05);
+
+        setupKeyListener(); // Initialize key listener
     }
 
-    public void addKeyListener() {
-        // Assuming a GUI component is available to add the listener
-        Engine.addKeyListener(new KeyAdapter() {
+    private void setupKeyListener() {
+        frame = new JFrame("Player Input");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setFocusable(true);
+
+        frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -22,6 +32,9 @@ Public class Player extends Enemy{
                 }
             }
         });
+
+        frame.setVisible(true);
+        frame.requestFocus();
     }
 
     public boolean isEnterPressed() {
@@ -41,18 +54,26 @@ Public class Player extends Enemy{
                 System.out.println("2 to Bite");
                 System.out.println("3 to Pounce");
 
-                // Simulating key press for demonstration
-                int keyCode = getSimulatedKeyPress(); // Placeholder for actual key press capture
+                int keyCode = getSimulatedKeyPress(); // Placeholder for actual key press
                 Ability chosenAbility = null;
 
-                if (keyCode == KeyEvent.VK_Q) {
-                    enemy.takeDamage(3);
-                } else if (keyCode == KeyEvent.VK_1) {
-                    chosenAbility = abilities.get(0);
-                } else if (keyCode == KeyEvent.VK_2) {
-                    chosenAbility = abilities.get(1);
-                } else if (keyCode == KeyEvent.VK_3) {
-                    chosenAbility = abilities.get(2);
+                switch (keyCode) {
+                    case KeyEvent.VK_Q:
+                        enemy.takeDamage(3);
+                        System.out.println("Player attacks directly for 3 damage!");
+                        break;
+                    case KeyEvent.VK_1:
+                        chosenAbility = abilities.get(0);
+                        break;
+                    case KeyEvent.VK_2:
+                        chosenAbility = abilities.get(1);
+                        break;
+                    case KeyEvent.VK_3:
+                        chosenAbility = abilities.get(2);
+                        break;
+                    default:
+                        System.out.println("Invalid input!");
+                        break;
                 }
 
                 if (chosenAbility != null) {
@@ -60,7 +81,10 @@ Public class Player extends Enemy{
                     System.out.println("Nemo " + " uses " + chosenAbility.getName() + "!");
 
                     if (damage == -1) {
-                        System.out.println("Nemo " + " skips the turn because of cooldown.");
+                        System.out.println("Nemo skips the turn because of cooldown.");
+                    } else {
+                        enemy.takeDamage(damage);
+                        System.out.println(enemy.getName() + " takes " + damage + " damage!");
                     }
                 }
 
@@ -77,7 +101,7 @@ Public class Player extends Enemy{
     }
 
     private int getSimulatedKeyPress() {
-        // This method simulates key press for demonstration purposes
-        return KeyEvent.VK_1; // Simulating "Scratch" ability
+        // Simulating "Scratch" ability
+        return KeyEvent.VK_1;
     }
 }
