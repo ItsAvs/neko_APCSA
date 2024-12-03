@@ -21,9 +21,36 @@ public class NekoGame {
 
         //First cutscene: introduction to cafe
         game.playMusic("./audios/typing.wav", 3, false, 0.01);
+
         game.displayScreen("./imgs/1.gif");
+        
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/2.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/3.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/4.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/5.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/6.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/7.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/8.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/9.gif");
+        
         game.playMusic("./audios/cut_scenes.wav", 120, true,1);
-        game.displayScreen(null);
+        
+        
 
 
         
