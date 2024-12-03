@@ -1,36 +1,39 @@
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Random;
 
+public class Player extends Enemy {
+    private boolean enterPressed = false; // Track if Enter was pressed
 
-Public class Player extends Enemy{
-
-    public Player(String name, int health, ArrayList<Ability> abilities){
-        super("Nemo", 100);
+    public Player(String name, int health, ArrayList<Ability> abilities) {
+        super(name, health);
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
         addAbility("Pounce", 0, 10, 0, 0.05);
-
     }
 
-
-    public String keyPressed(KeyEvent e) {
-        return e.getKeyCode;
-
-        
+    public void addKeyListener() {
+        // Assuming a GUI component is available to add the listener
+        Engine.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    enterPressed = true;
+                }
+            }
+        });
     }
 
     public boolean isEnterPressed() {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            return true;
-        return false;
+        return enterPressed;
+    }
+
+    public void resetEnterPressed() {
+        enterPressed = false;
     }
 
     @Override
     public void makeMove(Player enemy) {
-        
-
-        
-
         while (true) {
             if (isEnterPressed()) {
                 System.out.println("Q to Attack");
@@ -38,28 +41,28 @@ Public class Player extends Enemy{
                 System.out.println("2 to Bite");
                 System.out.println("3 to Pounce");
 
-                if (keyPressed() == KeyEvent.VK_Q){
+                // Simulating key press for demonstration
+                int keyCode = getSimulatedKeyPress(); // Placeholder for actual key press capture
+                Ability chosenAbility = null;
+
+                if (keyCode == KeyEvent.VK_Q) {
                     enemy.takeDamage(3);
-                }
-                else if (keyPressed() == KeyEvent.VK_1){
-                    Ability chosenAbility = abilities.get(1);
-                }
-                else if (keyPressed() == KeyEvent.VK_2){
-                    Ability chosenAbility = abilities.get(2);
-                }
-                else if (keyPressed() == KeyEvent.VK_3){
-                    Ability chosenAbility = abilities.get(3);
+                } else if (keyCode == KeyEvent.VK_1) {
+                    chosenAbility = abilities.get(0);
+                } else if (keyCode == KeyEvent.VK_2) {
+                    chosenAbility = abilities.get(1);
+                } else if (keyCode == KeyEvent.VK_3) {
+                    chosenAbility = abilities.get(2);
                 }
 
-                
-                int damage = chosenAbility.use();
-                System.out.println(name + " uses " + chosenAbility.getName() + "!");
-                
-                if (damage == -1) {
-                    System.out.println(name + " skips the turn because of cooldown.");
+                if (chosenAbility != null) {
+                    int damage = chosenAbility.use();
+                    System.out.println("Nemo " + " uses " + chosenAbility.getName() + "!");
+
+                    if (damage == -1) {
+                        System.out.println("Nemo " + " skips the turn because of cooldown.");
+                    }
                 }
-
-
 
                 resetEnterPressed();
                 return;
@@ -71,7 +74,10 @@ Public class Player extends Enemy{
                 e.printStackTrace();
             }
         }
+    }
 
-
+    private int getSimulatedKeyPress() {
+        // This method simulates key press for demonstration purposes
+        return KeyEvent.VK_1; // Simulating "Scratch" ability
     }
 }
