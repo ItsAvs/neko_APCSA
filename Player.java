@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-Public class Player extends Enemy{
+public class Player extends Enemy{
 
     public Player(String name, int health, ArrayList<Ability> abilities){
         super("Nemo", 100);
