@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -7,10 +6,10 @@ public class Player extends Enemy {
 
     private boolean enterPressed = false;
     private JFrame frame; // Frame to handle key events
+    private ArrayList<Ability> abilities;
 
     public Player(String name, int health, ArrayList<Ability> abilities) {
         super(name, health);
-        this.abilities = abilities; // Assuming abilities is declared in the Enemy class
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
         addAbility("Pounce", 0, 10, 0, 0.05);
