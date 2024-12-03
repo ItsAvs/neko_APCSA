@@ -144,15 +144,18 @@ public class Engine implements KeyListener {
 
     }
 
-    public void playMusic(String filePath, int durationInSeconds, boolean loop) {
+    public void playMusic(String filePath, int durationInSeconds, boolean loop, double volumePercent) {
         try {
             // Load the audio file
             File audioFile = new File(filePath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
     
             // Get a Clip to play the audio
             audioClip = AudioSystem.getClip();
             audioClip.open(audioStream);
+            FloatControl volumeControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+
     
             if (loop) {
                 // Loop continuously
@@ -164,6 +167,8 @@ public class Engine implements KeyListener {
     
             // Start playing the audio
             audioClip.start();
+            volumeControl.setValue((int) (volumeControl.getMaximum() * volumePercent));
+            
     
             // Create a separate thread to stop the audio after the specified duration
             new Thread(() -> {

@@ -1,9 +1,10 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Player extends Enemy {
-    private boolean enterPressed = false; // Track if Enter was pressed
+
+Public class Player extends Enemy{
 
     public Player(String name, int health, ArrayList<Ability> abilities) {
         super(name, health);
