@@ -6,7 +6,9 @@ public class NekoGame {
 
     }
 
-    private void levelOne(){}
+    private static void levelOne(){
+        System.out.println("hiiii");
+    }
 
     private void levelTwo(){}
 
@@ -17,10 +19,11 @@ public class NekoGame {
         game.playMusic("./audios/start_music.wav", 120, true, 1);
         game.displayScreen("./imgs/start_screen.png");
         game.startKeyCheckLoop(); //check if enter pressed
-        game.stopMusicWithFadeOut("./audios/konekonoosanpo.wav", 500);
+        game.stopMusicWithFadeOut("./audios/start_music.wav", 500);
 
         //First cutscene: introduction to cafe
-        game.playMusic("./audios/typing.wav", 3, false, 0.01);
+        game.playMusic("./audios/cut_scenes.wav", 120, false,1);
+        
 
         game.displayScreen("./imgs/1.gif");
         
@@ -45,10 +48,19 @@ public class NekoGame {
         game.startKeyCheckLoop();
         game.displayScreen("./imgs/8.gif");
 
+        //Fight Scene Starts
         game.startKeyCheckLoop();
+        game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+        game.playMusic("./audios/fight.wav", 120, true, 1);
         game.displayScreen("./imgs/9.gif");
+
+        levelOne(); 
+
+
+
+
         
-        game.playMusic("./audios/cut_scenes.wav", 120, true,1);
+        
         
         
 

@@ -20,6 +20,10 @@ public class Enemy {
         return health <= 0;
     }
 
+    public int getHealth(){
+        return health;
+    }
+
     public void takeDamage(int damage) {
         health -= damage;
         System.out.println(name + " takes " + damage + " damage! Remaining health: " + health);
