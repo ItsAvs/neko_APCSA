@@ -11,9 +11,7 @@ public class Player extends Enemy {
 
     public Player(String name, int health) {
         super(name, health);
-        addAbility("Scratch", 15, 25, 2, 0.2);
-        addAbility("Bite", 10, 15, 1, 0.1);
-        addAbility("Pounce", 0, 10, 0, 0.05);
+     
 
         setupKeyListener(); // Initialize key listener
     }
@@ -47,7 +45,6 @@ public class Player extends Enemy {
 
     public void makeMove(Enemy enemy, Engine game) {
         while (true) {
-            if (isEnterPressed()) {
                 System.out.println("Q to Attack");
                 System.out.println("1 to Scratch");
                 System.out.println("2 to Bite");
@@ -85,11 +82,12 @@ public class Player extends Enemy {
                         enemy.takeDamage(damage);
                         game.displayText(enemy.getName() + " takes " + damage + " damage!");
                     }
+
+                    return;
                 }
 
                 resetEnterPressed();
-                return;
-            }
+                
 
             try {
                 Thread.sleep(100); // Delay to avoid busy-waiting (100ms)
