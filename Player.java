@@ -45,7 +45,7 @@ public class Player extends Enemy {
         enterPressed = false;
     }
 
-    public void makeMove(Enemy enemy) {
+    public void makeMove(Enemy enemy, Engine game) {
         while (true) {
             if (isEnterPressed()) {
                 System.out.println("Q to Attack");
@@ -59,7 +59,7 @@ public class Player extends Enemy {
                 switch (keyCode) {
                     case KeyEvent.VK_Q:
                         enemy.takeDamage(3);
-                        System.out.println("Player attacks directly for 3 damage!");
+                        game.displayText("Nemo attacks directly for 3 damage!");
                         break;
                     case KeyEvent.VK_1:
                         chosenAbility = abilities.get(0);
@@ -77,13 +77,13 @@ public class Player extends Enemy {
 
                 if (chosenAbility != null) {
                     int damage = chosenAbility.use();
-                    System.out.println("Nemo " + " uses " + chosenAbility.getName() + "!");
+                    game.displayText("Nemo " + " uses " + chosenAbility.getName() + "!");
 
                     if (damage == -1) {
                         System.out.println("Nemo skips the turn because of cooldown.");
                     } else {
                         enemy.takeDamage(damage);
-                        System.out.println(enemy.getName() + " takes " + damage + " damage!");
+                        game.displayText(enemy.getName() + " takes " + damage + " damage!");
                     }
                 }
 

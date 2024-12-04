@@ -44,7 +44,7 @@ public class Enemy {
         return stage;
     }
 
-    public void makeMove(Player player) {
+    public void makeMove(Player player, Engine game) {
         Random random = new Random();
 
         int startIndex = 0;

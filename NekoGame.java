@@ -67,13 +67,17 @@ public class NekoGame {
         game.displayText("Player Health: " + nemo.getHealth());
         
         System.out.println("Enemy one is Rosie");
+        
 
         while (!nemo.isDefeated()){
-            nemo.makeMove(rosie);
-            rosie.makeMove(nemo);
+            game.displayText("start battle");;
+            nemo.makeMove(rosie, game);
+
+
+            rosie.makeMove(nemo, game);
             game.displayText("Player Health: " + nemo.getHealth());
 
-            
+
         }
 
 
