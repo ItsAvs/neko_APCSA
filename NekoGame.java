@@ -16,6 +16,16 @@ public class NekoGame {
 
      public static void main(String[] args) {
         Engine game = new Engine();
+        Player nemo =  new Player("Nemo",100);
+        //enemy one 
+        Enemy rosie = new Enemy("Rosie", 100);
+        rosie.addAbility("Scratch", 5, 15, 1, 0.1);
+        rosie.addAbility("Pounce", 10, 20, 2, 0.15);
+        rosie.addAbility("Growl", 0, 10, 0, 0.05);
+
+        //enemy 2
+    
+
         game.playMusic("./audios/start_music.wav", 120, true, 1);
         game.displayScreen("./imgs/start_screen.png");
         game.startKeyCheckLoop(); //check if enter pressed
@@ -54,7 +64,18 @@ public class NekoGame {
         game.playMusic("./audios/fight.wav", 120, true, 1);
         game.displayScreen("./imgs/9.gif");
 
-        levelOne(); 
+        game.displayText("Player Health: " + nemo.getHealth());
+        
+        System.out.println("Enemy one is Rosie");
+
+        while (!nemo.isDefeated()){
+            nemo.makeMove(rosie);
+            rosie.makeMove(nemo);
+            game.displayText("Player Health: " + nemo.getHealth());
+
+            
+        }
+
 
 
 

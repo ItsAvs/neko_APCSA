@@ -2,13 +2,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+
 public class Player extends Enemy {
 
     private boolean enterPressed = false;
     private JFrame frame; // Frame to handle key events
     private ArrayList<Ability> abilities;
 
-    public Player(String name, int health, ArrayList<Ability> abilities) {
+    public Player(String name, int health) {
         super(name, health);
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
@@ -44,8 +45,7 @@ public class Player extends Enemy {
         enterPressed = false;
     }
 
-    @Override
-    public void makeMove(Player enemy) {
+    public void makeMove(Enemy enemy) {
         while (true) {
             if (isEnterPressed()) {
                 System.out.println("Q to Attack");
@@ -98,6 +98,8 @@ public class Player extends Enemy {
             }
         }
     }
+
+
 
     private int getSimulatedKeyPress() {
         // Simulating "Scratch" ability
