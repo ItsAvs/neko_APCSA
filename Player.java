@@ -81,7 +81,8 @@ public class Player extends Enemy {
 
                     if (damage == -1) {
                         System.out.println("Nemo skips the turn because of cooldown.");
-                    } else {
+                    } 
+                        else {
                         enemy.takeDamage(damage);
                         System.out.println(enemy.getName() + " takes " + damage + " damage!");
                     }
