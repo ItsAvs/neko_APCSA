@@ -2,13 +2,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+
 public class Player extends Enemy {
 
     private boolean enterPressed = false;
     private JFrame frame; // Frame to handle key events
     private ArrayList<Ability> abilities;
 
-    public Player(String name, int health, ArrayList<Ability> abilities) {
+    public Player(String name, int health) {
         super(name, health);
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
@@ -44,8 +45,7 @@ public class Player extends Enemy {
         enterPressed = false;
     }
 
-    @Override
-    public void makeMove(Player enemy) {
+    public void makeMove(Enemy enemy, Engine game) {
         while (true) {
             if (isEnterPressed()) {
                 System.out.println("Q to Attack");
@@ -59,7 +59,7 @@ public class Player extends Enemy {
                 switch (keyCode) {
                     case KeyEvent.VK_Q:
                         enemy.takeDamage(3);
-                        System.out.println("Player attacks directly for 3 damage!");
+                        game.displayText("Nemo attacks directly for 3 damage!");
                         break;
                     case KeyEvent.VK_1:
                         chosenAbility = abilities.get(0);
@@ -77,14 +77,14 @@ public class Player extends Enemy {
 
                 if (chosenAbility != null) {
                     int damage = chosenAbility.use();
-                    System.out.println("Nemo " + " uses " + chosenAbility.getName() + "!");
+                    game.displayText("Nemo " + " uses " + chosenAbility.getName() + "!");
 
                     if (damage == -1) {
                         System.out.println("Nemo skips the turn because of cooldown.");
                     } 
                         else {
                         enemy.takeDamage(damage);
-                        System.out.println(enemy.getName() + " takes " + damage + " damage!");
+                        game.displayText(enemy.getName() + " takes " + damage + " damage!");
                     }
                 }
 
@@ -99,6 +99,8 @@ public class Player extends Enemy {
             }
         }
     }
+
+
 
     private int getSimulatedKeyPress() {
         // Simulating "Scratch" ability

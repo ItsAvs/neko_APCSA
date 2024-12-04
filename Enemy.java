@@ -20,6 +20,10 @@ public class Enemy {
         return health <= 0;
     }
 
+    public int getHealth(){
+        return health;
+    }
+
     public void takeDamage(int damage) {
         health -= damage;
         System.out.println(name + " takes " + damage + " damage! Remaining health: " + health);
@@ -29,19 +33,49 @@ public class Enemy {
         abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance));
     }
 
-    public void makeMove(Player player) {
+    public int bossStage() {
+        int stage = 0;
+        if (health <= health * 0.7) {
+            stage = 1;
+        }
+        if (health <= health * 0.5) {
+            stage = 2;
+        }
+        return stage;
+    }
+
+    public void makeMove(Player player, Engine game) {
         Random random = new Random();
-        Ability chosenAbility = abilities.get(random.nextInt(abilities.size()));
 
+        int startIndex = 0;
+        int endIndex = 2;
+
+        if (bossStage() == 1) {
+            startIndex = 3;
+            endIndex = 5;
+        }
+        if (bossStage() == 2) {
+            startIndex = 6;
+            endIndex = 8;
+        }
+    
+        Ability chosenAbility = null;
+        int damage = -1;
+    
+        do {
+            int randomIndex = random.nextInt(endIndex - startIndex + 1) + startIndex;
+            chosenAbility = abilities.get(randomIndex);
+            damage = chosenAbility.use();
+        } while (damage == -1); // Repeat if the ability is on cooldown
+    
         System.out.println(name + " uses " + chosenAbility.getName() + "!");
-        int damage = chosenAbility.use();
-
-        if (damage == -1) {
-            System.out.println(name + " skips the turn because of cooldown.");
-        } else if (damage > 0) {
+        
+        if (damage > 0) {
             player.takeDamage(damage);
         }
     }
+    
+    
 
     public void reduceCooldowns() {
         for (Ability ability : abilities) {
