@@ -16,7 +16,13 @@ public class NekoGame {
 
      public static void main(String[] args) {
         Engine game = new Engine();
+        //main player
         Player nemo =  new Player("Nemo",100);
+        nemo.addAbility("Scratch", 15, 25, 2, 0.2);
+        nemo.addAbility("Bite", 10, 15, 1, 0.1);
+        nemo.addAbility("Pounce", 0, 10, 0, 0.05);
+
+
         //enemy one 
         Enemy rosie = new Enemy("Rosie", 100);
         rosie.addAbility("Scratch", 5, 15, 1, 0.1);
@@ -65,9 +71,11 @@ public class NekoGame {
         game.displayScreen("./imgs/9.gif");
 
         game.displayText("Player Health: " + nemo.getHealth());
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/10.gif");
         
         System.out.println("Enemy one is Rosie");
-        
+
 
         while (!nemo.isDefeated()){
             game.displayText("start battle");;
