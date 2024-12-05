@@ -64,7 +64,7 @@ public class NekoGame {
         game.startKeyCheckLoop();
         game.displayScreen("./imgs/8.gif");
 
-        //Fight Scene Starts
+        //Fight Scene Starts level One
         game.startKeyCheckLoop();
         game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
         game.playMusic("./audios/fight.wav", 120, true, 1);
@@ -76,53 +76,81 @@ public class NekoGame {
         
         System.out.println("Enemy one is Rosie");
 
-        String moveName = "";
+        String enemyMove = "";
+        String playerMove = "";
 
-        while (!nemo.isDefeated()){
-            game.displayText("start battle");;
-            nemo.makeMove(rosie, game);
+        while (!(nemo.isDefeated() || rosie.isDefeated())){
+            game.displayText("Player Turn");;
+            playerMove = nemo.makeMove(rosie, game);
 
-
-
-            moveName = rosie.makeMove(nemo, game);
-            if (moveName.equals("Scratch")){
+            if (playerMove.equals("Scratch")){
                 game.displayScreen(null);
             }
 
-            else if (moveName.equals("Pouce")){
+            else if (playerMove.equals("Bite")){
                 game.displayScreen(null);
             }
 
-            else if (moveName.equals("Growl")){
+            else if (playerMove.equals("Pounce")){
                 game.displayScreen(null);
             }
 
+
+            game.displayText("Enemy Turn");
+            enemyMove = rosie.makeMove(nemo, game);
+            if (enemyMove.equals("Scratch")){
+                game.displayScreen(null);
+            }
+
+            else if (enemyMove.equals("Pounce")){
+                game.displayScreen(null);
+            }
+
+            else if (enemyMove.equals("Growl")){
+                game.displayScreen(null);
+            }
+
+            else if (enemyMove.equals("Sword")){
+                game.displayScreen(null);
+            }
+
+            else if (enemyMove.equals("Avada")){
+                game.displayScreen(null);
+            }
+            else if (enemyMove.equals("TNT")){
+                game.displayScreen(null);
+            }
+
+           
             if (rosie.bossStage() == 1){
                 rosie.addAbility("Sword", 10, 15, 3, 0.2);
                 rosie.addAbility("Avada", 5, 8, 1, 0.15);
                 rosie.addAbility("TNT", 10, 30, 4, 0.3);
             }
             
-            game.displayText("Player Health: " + nemo.getHealth());
+            game.displayEnemyHealth(rosie.getHealth());
+            game.displayPlayerHealth(nemo.getHealth());;
 
 
         }
 
+        //handle who wins or loses
 
+        //cut-scene 2
+        game.stopMusicWithFadeOut("./audios/fight.wav", 0);
+        game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
+        game.displayScreen("");
 
+        if (rosie.isDefeated()){
+            //win cut-scene
+        }
+
+        else{
+
+        }
 
 
         
-        
-        
-        
-
-
-        
-        //display level 
-
-        
-
 
 
        

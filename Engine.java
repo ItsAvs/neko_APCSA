@@ -91,6 +91,14 @@ public class Engine implements KeyListener {
         frame.repaint(); // Ensure updates are visible
     }
 
+    public void displayPlayerHealth(int health){
+
+    }
+
+    public void displayEnemyHealth(int health){
+
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -129,20 +137,7 @@ public class Engine implements KeyListener {
         }
     }
 
-    public void turnOccurs(){
-        //Player's turn 
-    }
 
-    //player does their turn
-    private void playerTurn(){
-        /*
-         * certain keypresses trigger certain attacks
-         */
-    }
-
-    private void enemyTurn(){
-
-    }
 
     public void playMusic(String filePath, int durationInSeconds, boolean loop, double volumePercent) {
         try {
