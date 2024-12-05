@@ -35,16 +35,13 @@ public class Enemy {
 
     public int bossStage() {
         int stage = 0;
-        if (health <= health * 0.7) {
-            stage = 1;
-        }
         if (health <= health * 0.5) {
-            stage = 2;
+            stage = 1;
         }
         return stage;
     }
 
-    public void makeMove(Player player, Engine game) {
+    public String makeMove(Player player, Engine game) {
         Random random = new Random();
 
         int startIndex = 0;
@@ -53,10 +50,6 @@ public class Enemy {
         if (bossStage() == 1) {
             startIndex = 3;
             endIndex = 5;
-        }
-        if (bossStage() == 2) {
-            startIndex = 6;
-            endIndex = 8;
         }
     
         Ability chosenAbility = null;
@@ -73,6 +66,8 @@ public class Enemy {
         if (damage > 0) {
             player.takeDamage(damage);
         }
+
+        return chosenAbility.getName();
     }
     
     

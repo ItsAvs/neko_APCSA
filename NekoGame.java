@@ -76,13 +76,33 @@ public class NekoGame {
         
         System.out.println("Enemy one is Rosie");
 
+        String moveName = "";
 
         while (!nemo.isDefeated()){
             game.displayText("start battle");;
             nemo.makeMove(rosie, game);
 
 
-            rosie.makeMove(nemo, game);
+
+            moveName = rosie.makeMove(nemo, game);
+            if (moveName.equals("Scratch")){
+                game.displayScreen(null);
+            }
+
+            else if (moveName.equals("Pouce")){
+                game.displayScreen(null);
+            }
+
+            else if (moveName.equals("Growl")){
+                game.displayScreen(null);
+            }
+
+            if (rosie.bossStage() == 1){
+                rosie.addAbility("Sword", 10, 15, 3, 0.2);
+                rosie.addAbility("Avada", 5, 8, 1, 0.15);
+                rosie.addAbility("TNT", 10, 30, 4, 0.3);
+            }
+            
             game.displayText("Player Health: " + nemo.getHealth());
 
 

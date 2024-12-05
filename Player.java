@@ -45,7 +45,6 @@ public class Player extends Enemy {
 
     public void makeMove(Enemy enemy, Engine game) {
         while (true) {
-                System.out.println("Q to Attack");
                 System.out.println("1 to Scratch");
                 System.out.println("2 to Bite");
                 System.out.println("3 to Pounce");
@@ -54,10 +53,7 @@ public class Player extends Enemy {
                 Ability chosenAbility = null;
 
                 switch (keyCode) {
-                    case KeyEvent.VK_Q:
-                        enemy.takeDamage(3);
-                        game.displayText("Nemo attacks directly for 3 damage!");
-                        break;
+            
                     case KeyEvent.VK_1:
                         chosenAbility = abilities.get(0);
                         break;
