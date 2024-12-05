@@ -11,6 +11,7 @@ public class Player extends Enemy {
 
     public Player(String name, int health) {
         super(name, health);
+        this.abilities = abilities;
         addAbility("Scratch", 15, 25, 2, 0.2);
         addAbility("Bite", 10, 15, 1, 0.1);
         addAbility("Pounce", 0, 10, 0, 0.05);
