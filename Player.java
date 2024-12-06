@@ -35,14 +35,10 @@ public class Player extends Enemy {
     }
 
 
-    public void makeMove(Enemy enemy) {
+    public String makeMove(Enemy enemy, Engine game) {
         Ability chosenAbility = null;
 
         switch (keyCode) {
-            case KeyEvent.VK_Q:
-                enemy.takeDamage(3);
-                System.out.println(("Nemo attacks directly for 3 damage!"));
-                break;
             case KeyEvent.VK_1:
                 chosenAbility = abilities.get(0);
                 break;
@@ -54,7 +50,7 @@ public class Player extends Enemy {
                 break;
             default:
                 System.out.println("Invalid input!");
-                return;
+                
         }
 
         if (chosenAbility != null) {
@@ -67,8 +63,14 @@ public class Player extends Enemy {
                 enemy.takeDamage(damage);
                 System.out.println((enemy.getName() + " takes " + damage + " damage!"));
             }
+
+            
         }
 
         keyCode = 0; // Reset keyCode after processing
+
+        return chosenAbility.getName();
+        
+        
     }
 }
