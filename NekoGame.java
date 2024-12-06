@@ -85,7 +85,7 @@ public class NekoGame {
 
         while (!(nemo.isDefeated() || winston.isDefeated())){
             game.displayText("Player Turn");;
-            playerMove = nemo.makeMove winston, game);
+            playerMove = nemo.makeMove(winston, game);
 
             if (playerMove.equals("Scratch")){
                 game.displayScreen(null);
@@ -125,14 +125,14 @@ public class NekoGame {
                 game.displayScreen(null);
             }
 
-            if  winston.bossStage() == 1){
+            if  (winston.bossStage() == 1){
                 game.displayVideo("");
             }
 
            
 
             
-            game.displayEnemyHealth winston.getHealth());
+            game.displayEnemyHealth(winston.getHealth());
             game.displayPlayerHealth(nemo.getHealth());;
 
 
@@ -145,7 +145,7 @@ public class NekoGame {
         game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
         game.displayScreen("");
 
-        if  winston.isDefeated()){
+        if (winston.isDefeated()){
             //win cut-scene
         }
 
