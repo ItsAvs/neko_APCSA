@@ -25,16 +25,16 @@ public class NekoGame {
 
         //enemy one 
         Enemy winston = new Enemy("winston", 100);
-     winston.addAbility("Scratch", 5, 15, 1, 0.1);
-     winston.addAbility("Pounce", 10, 20, 2, 0.15);
-     winston.addAbility("Growl", 0, 10, 0, 0.05);
-     winston.addAbility("Sword", 10, 15, 3, 0.2);
-     winston.addAbility("Avada", 5, 8, 1, 0.15);
-     winston.addAbility("TNT", 10, 30, 4, 0.3);
+        winston.addAbility("Scratch", 5, 15, 1, 0.1);
+        winston.addAbility("Pounce", 10, 20, 2, 0.15);
+        winston.addAbility("Growl", 0, 10, 0, 0.05);
+        winston.addAbility("Sword", 10, 15, 3, 0.2);
+        winston.addAbility("Avada", 5, 8, 1, 0.15);
+        winston.addAbility("TNT", 10, 30, 4, 0.3);
 
         //enemy 2
         Enemy rosie = new Enemy("rosie", 120);
-    
+        
 
         game.playMusic("./audios/start_music.wav", 120, true, 1);
         game.displayScreen("./imgs/start_screen.png");
