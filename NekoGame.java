@@ -24,12 +24,16 @@ public class NekoGame {
 
 
         //enemy one 
-        Enemy rosie = new Enemy("Rosie", 100);
-        rosie.addAbility("Scratch", 5, 15, 1, 0.1);
-        rosie.addAbility("Pounce", 10, 20, 2, 0.15);
-        rosie.addAbility("Growl", 0, 10, 0, 0.05);
+        Enemy winston = new Enemy("winston", 100);
+     winston.addAbility("Scratch", 5, 15, 1, 0.1);
+     winston.addAbility("Pounce", 10, 20, 2, 0.15);
+     winston.addAbility("Growl", 0, 10, 0, 0.05);
+     winston.addAbility("Sword", 10, 15, 3, 0.2);
+     winston.addAbility("Avada", 5, 8, 1, 0.15);
+     winston.addAbility("TNT", 10, 30, 4, 0.3);
 
         //enemy 2
+        Enemy rosie = new Enemy("rosie", 120);
     
 
         game.playMusic("./audios/start_music.wav", 120, true, 1);
@@ -74,14 +78,14 @@ public class NekoGame {
         game.startKeyCheckLoop();
         game.displayScreen("./imgs/10.gif");
         
-        System.out.println("Enemy one is Rosie");
+        System.out.println("Enemy one is winston");
 
         String enemyMove = "";
         String playerMove = "";
 
-        while (!(nemo.isDefeated() || rosie.isDefeated())){
+        while (!(nemo.isDefeated() || winston.isDefeated())){
             game.displayText("Player Turn");;
-            playerMove = nemo.makeMove(rosie, game);
+            playerMove = nemo.makeMove winston, game);
 
             if (playerMove.equals("Scratch")){
                 game.displayScreen(null);
@@ -97,7 +101,7 @@ public class NekoGame {
 
 
             game.displayText("Enemy Turn");
-            enemyMove = rosie.makeMove(nemo, game);
+            enemyMove = winston.makeMove(nemo, game);
             if (enemyMove.equals("Scratch")){
                 game.displayScreen(null);
             }
@@ -121,14 +125,14 @@ public class NekoGame {
                 game.displayScreen(null);
             }
 
-           
-            if (rosie.bossStage() == 1){
-                rosie.addAbility("Sword", 10, 15, 3, 0.2);
-                rosie.addAbility("Avada", 5, 8, 1, 0.15);
-                rosie.addAbility("TNT", 10, 30, 4, 0.3);
+            if  winston.bossStage() == 1){
+                game.displayVideo("");
             }
+
+           
+
             
-            game.displayEnemyHealth(rosie.getHealth());
+            game.displayEnemyHealth winston.getHealth());
             game.displayPlayerHealth(nemo.getHealth());;
 
 
@@ -141,13 +145,21 @@ public class NekoGame {
         game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
         game.displayScreen("");
 
-        if (rosie.isDefeated()){
+        if  winston.isDefeated()){
             //win cut-scene
         }
 
         else{
 
         }
+
+        //cut-scene before level 2
+
+
+        //level two fight
+        game.playMusic("./audios/fight.wav",120, true, 1.0);
+
+
 
 
         
