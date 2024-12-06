@@ -28,6 +28,10 @@ public class NekoGame {
         rosie.addAbility("Scratch", 5, 15, 1, 0.1);
         rosie.addAbility("Pounce", 10, 20, 2, 0.15);
         rosie.addAbility("Growl", 0, 10, 0, 0.05);
+        rosie.addAbility("Claw Swipe", 15, 25, 3, 0.2);
+        rosie.addAbility("Furious Charge", 20, 30, 4, 0.25);
+        rosie.addAbility("Intimidate", 0, 5, 1, 0.1);
+
 
         //enemy 2
     
