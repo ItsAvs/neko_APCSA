@@ -29,16 +29,20 @@ public class NekoGame {
             if (playerMove.equals("Scratch")){
                 game.displayScreen("./imgs/1nemo_scratch.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
+                
             }
 
             else if (playerMove.equals("Bite")){
                 game.displayScreen("./imgs/1nemo_bite.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             else if (playerMove.equals("Pounce")){
                 game.displayScreen("./imgs/1nemo_pounce.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
 
@@ -47,35 +51,42 @@ public class NekoGame {
             if (enemyMove.equals("Scratch")){
                 game.displayScreen("./imgs/imgs/winston_scratch.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             else if (enemyMove.equals("Pounce")){
-                game.displayScreen("./imgs/winston_pounce.gif");
+                game.displayScreen("./imgs/1winston_pounce.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             else if (enemyMove.equals("Growl")){
                 game.displayScreen("./imgs/winston_growl.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             else if (enemyMove.equals("Sword")){
                 game.displayScreen("./imgs/winston_sword");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             else if (enemyMove.equals("Avada")){
                 game.displayScreen("./imgs/winston_avada.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
             else if (enemyMove.equals("TNT")){
                 game.displayScreen("./imgs/winston_TNT.gif");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
             if  (winston.bossStage() == 1){
                 game.displayText("OH NO! Winston leveled up to boss stage 2!");
                 game.delay(3000);
+                game.displayScreen("./imgs/15.gif");
             }
 
            
@@ -83,6 +94,8 @@ public class NekoGame {
             
             game.displayEnemyHealth(winston.getHealth());
             game.displayPlayerHealth(nemo.getHealth());
+            nemo.reduceCooldowns();
+            winston.reduceCooldowns();
 
 
         }
@@ -171,14 +184,14 @@ public class NekoGame {
      public static void main(String[] args) {
         Engine game = new Engine();
         //main player
-        Player nemo =  new Player("Nemo",100);
+        Player nemo =  new Player("Nemo",100, game);
         nemo.addAbility("Scratch", 15, 25, 2, 0.2);
         nemo.addAbility("Bite", 10, 15, 1, 0.1);
         nemo.addAbility("Pounce", 0, 10, 0, 0.05);
 
 
         //enemy one 
-        Enemy winston = new Enemy("winston", 100);
+        Enemy winston = new Enemy("winston", 100, game);
         winston.addAbility("Scratch", 5, 15, 1, 0.1);
         winston.addAbility("Pounce", 10, 20, 2, 0.15);
         winston.addAbility("Growl", 0, 10, 0, 0.05);
@@ -188,7 +201,7 @@ public class NekoGame {
         winston.addAbility("TNT", 10, 30, 4, 0.3);
 
         //enemy 2
-        Enemy rosie = new Enemy("rosie", 120);
+        Enemy rosie = new Enemy("rosie", 120, game);
         rosie.addAbility("Claw Swipe", 15, 25, 3, 0.2);
         rosie.addAbility("Furious Charge", 20, 30, 4, 0.25);
         rosie.addAbility("Intimidate", 0, 5, 1, 0.1);
@@ -198,7 +211,7 @@ public class NekoGame {
         rosie.addAbility("Attack", 10, 15, 2, 0.1);
 
         //enemy 3
-        Enemy luna = new Enemy("Luna", 150);
+        Enemy luna = new Enemy("Luna", 150, game);
     
         //start game
         game.playMusic("./audios/start_music.wav", 120, true, 1);

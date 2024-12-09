@@ -5,10 +5,12 @@ public class Enemy {
     private String name;
     private int health;
     private ArrayList<Ability> abilities;
+    private Engine game;
 
-    public Enemy(String name, int health) {
+    public Enemy(String name, int health, Engine game) {
         this.name = name;
         this.health = health;
+        this.game = game;
         this.abilities = new ArrayList<>();
     }
 
@@ -30,7 +32,7 @@ public class Enemy {
     }
 
     public void addAbility(String name, int minDamage, int maxDamage, int cooldown, double failureChance) {
-        abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance));
+        abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance, game));
     }
 
     public int bossStage() {
@@ -65,6 +67,7 @@ public class Enemy {
         
         if (damage > 0) {
             player.takeDamage(damage);
+            
         }
 
         return chosenAbility.getName();

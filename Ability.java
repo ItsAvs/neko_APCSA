@@ -7,14 +7,16 @@ public class Ability {
     private int cooldown;
     private int turnsLeft;
     private double failureChance;
+    private Engine game;
 
-    public Ability(String name, int minDamage, int maxDamage, int cooldown, double failureChance) {
+    public Ability(String name, int minDamage, int maxDamage, int cooldown, double failureChance, Engine game) {
         this.name = name;
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.cooldown = cooldown;
         this.turnsLeft = 0;
         this.failureChance = failureChance;
+        this.game = game;
     }
 
     public String getName() {
@@ -27,13 +29,13 @@ public class Ability {
 
     public int use() {
         if (turnsLeft > 0) {
-            System.out.println(name + " is on cooldown for " + turnsLeft + " more turn(s)!");
+            game.displayText(name + " is on cooldown for " + turnsLeft + " more turn(s)!");
             return -1; // ability cannot be used
         }
 
         Random random = new Random();
         if (random.nextDouble() < failureChance) {
-            System.out.println(name + " failed!");
+            game.displayText(name + " failed!");
             return 0; // failed attack
         }
 

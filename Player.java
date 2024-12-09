@@ -7,19 +7,22 @@ public class Player extends Enemy {
     private JFrame frame; 
     private ArrayList<Ability> abilities;
     private String name;
+    private Engine game;
 
 
-    public Player(String name, int health) {
-        super(name, health);
+    public Player(String name, int health, Engine game) {
+        super(name, health, game);
         this.abilities = new ArrayList<>();
         this.name = name;
+        this.game = game;
+
         setupKeyListener();
     }
 
    
 
     public void addAbility(String name, int minDamage, int maxDamage, int cooldown, double failureChance) {
-        abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance));
+        abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance, game));
     }
 
     private void setupKeyListener() {
@@ -65,10 +68,9 @@ public class Player extends Enemy {
 
         }
 
-        System.out.println(("Nemo uses " + chosenAbility.getName() + "!"));
+        game.displayText(("Nemo uses " + chosenAbility.getName() + "!"));
         enemy.takeDamage(damage);
-        System.out.println((enemy.getName() + " takes " + damage + " damage!"));
-    
+        game.displayText((enemy.getName() + " takes " + damage + " damage!"));
 
             
 
@@ -77,4 +79,12 @@ public class Player extends Enemy {
         
         
     }
+
+    public void reduceCooldowns() {
+        for (Ability ability : abilities) {
+            ability.reduceCooldown();
+        }
+    }
+
+
 }
