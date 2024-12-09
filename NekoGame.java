@@ -14,7 +14,7 @@ public class NekoGame {
 
         game.displayText("Player Health: " + nemo.getHealth());
         game.startKeyCheckLoop();
-        game.displayScreen("./imgs/10.gif");
+        game.displayScreen("./imgs/15.gif");
         
         System.out.println("Enemy one is winston");
 
@@ -22,8 +22,81 @@ public class NekoGame {
         String playerMove = "";
 
         while (!(nemo.isDefeated() || winston.isDefeated())){
-            game.displayText("Player Turn");;
+            game.displayText("Player Turn");
             playerMove = nemo.makeMove(winston, game);
+
+            if (playerMove.equals("Scratch")){
+                game.displayScreen("./imgs/1nemo_scratch.gif");
+            }
+
+            else if (playerMove.equals("Bite")){
+                game.displayScreen("./imgs/1nemo_bite.gif");
+            }
+
+            else if (playerMove.equals("Pounce")){
+                game.displayScreen("./imgs/1nemo_pounce.gif");
+            }
+
+
+            game.displayText("Enemy Turn");
+            enemyMove = winston.makeMove(nemo, game);
+            if (enemyMove.equals("Scratch")){
+                game.displayScreen("./imgs/imgs/winston_scratch.gif");
+            }
+
+            else if (enemyMove.equals("Pounce")){
+                game.displayScreen("./imgs/winston_pounce.gif");
+            }
+
+            else if (enemyMove.equals("Growl")){
+                game.displayScreen("./imgs/winston_growl.gif");
+            }
+
+            else if (enemyMove.equals("Sword")){
+                game.displayScreen("./imgs/winston_sword");
+            }
+
+            else if (enemyMove.equals("Avada")){
+                game.displayScreen("./imgs/winston_avada.gif");
+            }
+            else if (enemyMove.equals("TNT")){
+                game.displayScreen("./imgs/winston_TNT.gif");
+            }
+
+            if  (winston.bossStage() == 1){
+                game.displayText("OH NO! Winston leveled up to boss stage 2!");
+            }
+
+           
+
+            
+            game.displayEnemyHealth(winston.getHealth());
+            game.displayPlayerHealth(nemo.getHealth());
+
+
+        }
+
+        return winston.isDefeated();
+    }
+
+    public static boolean levelTwo(Engine game, Player nemo, Enemy rosie){
+        game.startKeyCheckLoop();
+        game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+        game.playMusic("./audios/fight.wav", 120, true, 1);
+        game.displayScreen("./imgs/.gif");
+
+        game.displayText("Player Health: " + nemo.getHealth());
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/10.gif");
+        
+        System.out.println("Enemy one is winston");
+
+        String enemyMove = "";
+        String playerMove = "";
+
+        while (!(nemo.isDefeated() || rosie.isDefeated())){
+            game.displayText("Player Turn");
+            playerMove = nemo.makeMove(rosie, game);
 
             if (playerMove.equals("Scratch")){
                 game.displayScreen(null);
@@ -39,69 +112,50 @@ public class NekoGame {
 
 
             game.displayText("Enemy Turn");
-            enemyMove = winston.makeMove(nemo, game);
-            if (enemyMove.equals("Scratch")){
-                game.displayScreen("./imgs/imgs/rosie_attack.gif");
+            enemyMove = rosie.makeMove(nemo, game);
+            if (enemyMove.equals("Claw Swipe")){
+                game.displayScreen("");
             }
 
-            else if (enemyMove.equals("Pounce")){
+            else if (enemyMove.equals("Furious Charge")){
                 game.displayScreen(null);
             }
 
-            else if (enemyMove.equals("Growl")){
+            else if (enemyMove.equals("Intimidate")){
                 game.displayScreen(null);
             }
 
-            else if (enemyMove.equals("Sword")){
+            else if (enemyMove.equals("Box Punch")){
                 game.displayScreen(null);
             }
 
-            else if (enemyMove.equals("Avada")){
+            else if (enemyMove.equals("Fireball")){
                 game.displayScreen(null);
             }
-            else if (enemyMove.equals("TNT")){
+            else if (enemyMove.equals("Attack")){
                 game.displayScreen(null);
             }
 
-            if  (winston.bossStage() == 1){
+            if  (rosie.bossStage() == 1){
                 game.displayVideo("");
             }
 
-           
+        
 
-            
-            game.displayEnemyHealth(winston.getHealth());
-            game.displayPlayerHealth(nemo.getHealth());;
-
+        
+        game.displayEnemyHealth(rosie.getHealth());
+        game.displayPlayerHealth(nemo.getHealth());
 
         }
-
-        return winston.isDefeated();
-    }
-
-    public static boolean levelTwo(Engine game, Player nemo, Enemy rosie){
-            game.startKeyCheckLoop();
-            game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
-            game.playMusic("./audios/fight.wav", 120, true, 1);
-            game.displayScreen("./imgs/.gif");
-    
-            game.displayText("Player Health: " + nemo.getHealth());
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/10.gif");
-            
-            System.out.println("Enemy one is winston");
-    
-            String enemyMove = "";
-            String playerMove = "";
-    
-            while (!(nemo.isDefeated() || rosie.isDefeated())){
-
-            }
 
         return rosie.isDefeated();
     }
 
-    private void levelThree(){}
+    private boolean levelThree(Engine game, Player nemo, Enemy luna){
+
+        return luna.isDefeated();
+
+    }
 
      public static void main(String[] args) {
         Engine game = new Engine();
@@ -117,6 +171,7 @@ public class NekoGame {
         winston.addAbility("Scratch", 5, 15, 1, 0.1);
         winston.addAbility("Pounce", 10, 20, 2, 0.15);
         winston.addAbility("Growl", 0, 10, 0, 0.05);
+        //stage 2 abilities
         winston.addAbility("Sword", 10, 15, 3, 0.2);
         winston.addAbility("Avada", 5, 8, 1, 0.15);
         winston.addAbility("TNT", 10, 30, 4, 0.3);
@@ -126,6 +181,13 @@ public class NekoGame {
         rosie.addAbility("Claw Swipe", 15, 25, 3, 0.2);
         rosie.addAbility("Furious Charge", 20, 30, 4, 0.25);
         rosie.addAbility("Intimidate", 0, 5, 1, 0.1);
+        //stage 2 abilities
+        rosie.addAbility("Fireball", 23, 35, 3, 0.3);
+        rosie.addAbility("Box Punch", 30, 35, 3, 0.2);
+        rosie.addAbility("Attack", 10, 15, 2, 0.1);
+
+        //enemy 3
+        Enemy luna = new Enemy("Luna", 150);
     
         //start game
         game.playMusic("./audios/start_music.wav", 120, true, 1);
@@ -166,10 +228,19 @@ public class NekoGame {
         //cut-scene 2
         game.stopMusicWithFadeOut("./audios/fight.wav", 0);
         game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
-        game.displayScreen("");
 
         if (fightWon){
-            //win cut-scene
+            game.displayScreen("./imgs/28.gif");
+
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/29.gif");
+
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/30.gif");
+
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/31.gif");
+
         }
 
         else{
@@ -193,12 +264,69 @@ public class NekoGame {
         }
 
         //cut-scene before level 2
+        game.displayScreen("./imgs/41.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/42.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/43.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/44.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/45.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/46.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/47.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/48.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/49.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/50.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/51.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/52.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/53.gif");
+
+
+        
+        //level two fight
+        game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+        game.playMusic("./audios/fight.wav",120, true, 1.0);
+        game.displayScreen("./imgs/54.gif");
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/54.gif");
+
         fightWon = levelTwo(game, nemo, rosie);
 
+        if (fightWon){
 
-        //level two fight
+        }
+
+        else {
+
+        }
+
+        //level 3 cut-scene
+
+        //level 3 fight
         game.playMusic("./audios/fight.wav",120, true, 1.0);
         game.displayScreen("");
+        //fightWon = levelThree(game, nemo, luna);
 
 
 

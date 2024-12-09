@@ -215,13 +215,25 @@ public class Engine implements KeyListener {
         }
     }
 
+    public static void delay(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            System.out.println("Sleep interrupted: " + e.getMessage());
+            Thread.currentThread().interrupt(); // Preserve the interrupted status
+        }
 
-public void displayVideo(String file){
-    //handles videos 
+    }
+
+    public void displayVideo(String file){
+
+    }
+
+
 }
     
     
 
     
-}
+
 

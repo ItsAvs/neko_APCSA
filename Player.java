@@ -7,14 +7,17 @@ public class Player extends Enemy {
     private JFrame frame; 
     private ArrayList<Ability> abilities;
     private int keyCode;
+    private String name;
 
     public Player(String name, int health) {
         super(name, health);
         this.abilities = new ArrayList<>();
-        addAbility("Scratch", 15, 25, 2, 0.2);
-        addAbility("Bite", 10, 15, 1, 0.1);
-        addAbility("Pounce", 0, 10, 0, 0.05);
+        this.name = name;
         setupKeyListener();
+    }
+
+    public void addAbility(String name, int minDamage, int maxDamage, int cooldown, double failureChance) {
+        abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance));
     }
 
     private void setupKeyListener() {
@@ -38,19 +41,22 @@ public class Player extends Enemy {
     public String makeMove(Enemy enemy, Engine game) {
         Ability chosenAbility = null;
 
-        switch (keyCode) {
-            case KeyEvent.VK_1:
-                chosenAbility = abilities.get(0);
-                break;
-            case KeyEvent.VK_2:
-                chosenAbility = abilities.get(1);
-                break;
-            case KeyEvent.VK_3:
-                chosenAbility = abilities.get(2);
-                break;
-            default:
-                System.out.println("Invalid input!");
-                
+        while (chosenAbility == null){
+
+            switch (keyCode) {
+                case KeyEvent.VK_1:
+                    chosenAbility = abilities.get(0);
+                    break;
+                case KeyEvent.VK_2:
+                    chosenAbility = abilities.get(1);
+                    break;
+                case KeyEvent.VK_3:
+                    chosenAbility = abilities.get(2);
+                    break;
+                default:
+                    System.out.println("Invalid input!");
+                    
+            }
         }
 
         if (chosenAbility != null) {
