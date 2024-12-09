@@ -86,7 +86,7 @@ public class NekoGame {
             if  (winston.bossStage() == 1){
                 game.displayText("OH NO! Winston leveled up to boss stage 2!");
                 game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
+                game.displayScreen("");
             }
 
            
@@ -212,6 +212,9 @@ public class NekoGame {
 
         //enemy 3
         Enemy luna = new Enemy("Luna", 150, game);
+        luna.addAbility("Hiss", 10, 20, 1, 0.1);
+        luna.addAbility("Shadow Leap", 20, 30, 3, 0.25);
+        luna.addAbility("Claw", 15, 25, 2, 0.2);
     
         //start game
         game.playMusic("./audios/start_music.wav", 120, true, 1);

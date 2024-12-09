@@ -64,8 +64,8 @@ public class Engine implements KeyListener {
         // Add the text label
         textLabel = new JLabel();
         textLabel.setBounds(10, 10, 300, 30); // Top-left corner
-        textLabel.setForeground(Color.RED);
-        textLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        textLabel.setForeground(Color.BLUE);
+        textLabel.setFont(new Font("Arial", Font.BOLD, 20));
         backgroundPanel.add(textLabel);
 
         // Add a ComponentListener to resize components when the frame is resized
