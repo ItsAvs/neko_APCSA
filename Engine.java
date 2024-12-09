@@ -11,6 +11,9 @@ public class Engine implements KeyListener {
     private JFrame frame;
     private JLabel textLabel;
     private boolean enterPressed = false; // Track if Enter was pressed
+    private boolean one = false;
+    private boolean two = false;
+    private boolean three = false;
     private BackgroundPanel backgroundPanel;
     private final int initialLength = 1024;
     private final int initialWidth = 768;
@@ -108,12 +111,20 @@ public class Engine implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
+
+        else if (e.getKeyCode() == KeyEvent.VK_1) {
+            one = true;
+        }
+
+        else if (e.getKeyCode() == KeyEvent.VK_2) {
+            two = true;
+        }
+
+        else if (e.getKeyCode() == KeyEvent.VK_3) {
+            three = true;
+        }
     }
 
-    // Method to check if Enter was pressed
-    public boolean isEnterPressed() {
-        return enterPressed;
-    }
 
     // Reset the Enter pressed flag
     public void resetEnterPressed() {
@@ -121,12 +132,31 @@ public class Engine implements KeyListener {
     }
 
     // Main game loop or logic for checking Enter press
-    public void startKeyCheckLoop() {
+    public int startKeyCheckLoop() {
         while (true) {
-            if (isEnterPressed()) {
+            if (enterPressed) {
                 System.out.println("Enter pressed");
                 resetEnterPressed(); // Reset after checking
-                return;
+                return -1;
+            }
+
+            else if (one){
+                System.out.println("1");
+                one = false;
+                return 1;
+
+            }
+
+            else if (two){
+                System.out.println("2");
+                two = false;
+                return 2;
+            }
+
+            else if (three){
+                System.out.println("3");
+                three = false;
+                return 3;
             }
 
             try {
@@ -135,6 +165,7 @@ public class Engine implements KeyListener {
                 e.printStackTrace();
             }
         }
+
     }
 
 

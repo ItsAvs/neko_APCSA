@@ -6,8 +6,8 @@ public class Player extends Enemy {
 
     private JFrame frame; 
     private ArrayList<Ability> abilities;
-    private int keyCode;
     private String name;
+
 
     public Player(String name, int health) {
         super(name, health);
@@ -15,6 +15,8 @@ public class Player extends Enemy {
         this.name = name;
         setupKeyListener();
     }
+
+   
 
     public void addAbility(String name, int minDamage, int maxDamage, int cooldown, double failureChance) {
         abilities.add(new Ability(name, minDamage, maxDamage, cooldown, failureChance));
@@ -25,12 +27,7 @@ public class Player extends Enemy {
         frame.setSize(300, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setFocusable(true);
-
-        frame.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                keyCode = e.getKeyCode();
-            }
+        frame.addComponentListener(new ComponentAdapter() {
         });
 
         frame.setVisible(true);
@@ -40,40 +37,41 @@ public class Player extends Enemy {
 
     public String makeMove(Enemy enemy, Engine game) {
         Ability chosenAbility = null;
+        int buttonPressed = game.startKeyCheckLoop();
+        int damage = -1;
 
-        while (chosenAbility == null){
+        while (chosenAbility == null || buttonPressed == -1 || damage == -1){
+            buttonPressed = game.startKeyCheckLoop();
 
-            switch (keyCode) {
-                case KeyEvent.VK_1:
-                    chosenAbility = abilities.get(0);
-                    break;
-                case KeyEvent.VK_2:
-                    chosenAbility = abilities.get(1);
-                    break;
-                case KeyEvent.VK_3:
-                    chosenAbility = abilities.get(2);
-                    break;
-                default:
-                    System.out.println("Invalid input!");
-                    
+            if (buttonPressed == 1){
+                chosenAbility = abilities.get(0);
+                System.out.println("1");
             }
+
+            else if (buttonPressed == 2){
+                chosenAbility = abilities.get(1);
+                System.out.println("2");
+            }
+
+            else if (buttonPressed == 3){
+                chosenAbility = abilities.get(2);
+                System.out.println("3");
+            }
+
+            if (chosenAbility != null){
+                damage = chosenAbility.use();
+            }
+
+
         }
 
-        if (chosenAbility != null) {
-            int damage = chosenAbility.use();
-            System.out.println(("Nemo uses " + chosenAbility.getName() + "!"));
-
-            if (damage == -1) {
-                System.out.println("Nemo skips the turn because of cooldown.");
-            } else {
-                enemy.takeDamage(damage);
-                System.out.println((enemy.getName() + " takes " + damage + " damage!"));
-            }
+        System.out.println(("Nemo uses " + chosenAbility.getName() + "!"));
+        enemy.takeDamage(damage);
+        System.out.println((enemy.getName() + " takes " + damage + " damage!"));
+    
 
             
-        }
 
-        keyCode = 0; // Reset keyCode after processing
 
         return chosenAbility.getName();
         

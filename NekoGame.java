@@ -12,9 +12,10 @@ public class NekoGame {
         game.playMusic("./audios/fight.wav", 120, true, 1);
         game.displayScreen("./imgs/9.gif");
 
-        game.displayText("Player Health: " + nemo.getHealth());
+        
         game.startKeyCheckLoop();
         game.displayScreen("./imgs/15.gif");
+        game.displayText("Player Health: " + nemo.getHealth());
         
         System.out.println("Enemy one is winston");
 
@@ -27,14 +28,17 @@ public class NekoGame {
 
             if (playerMove.equals("Scratch")){
                 game.displayScreen("./imgs/1nemo_scratch.gif");
+                game.delay(3000);
             }
 
             else if (playerMove.equals("Bite")){
                 game.displayScreen("./imgs/1nemo_bite.gif");
+                game.delay(3000);
             }
 
             else if (playerMove.equals("Pounce")){
                 game.displayScreen("./imgs/1nemo_pounce.gif");
+                game.delay(3000);
             }
 
 
@@ -42,29 +46,36 @@ public class NekoGame {
             enemyMove = winston.makeMove(nemo, game);
             if (enemyMove.equals("Scratch")){
                 game.displayScreen("./imgs/imgs/winston_scratch.gif");
+                game.delay(3000);
             }
 
             else if (enemyMove.equals("Pounce")){
                 game.displayScreen("./imgs/winston_pounce.gif");
+                game.delay(3000);
             }
 
             else if (enemyMove.equals("Growl")){
                 game.displayScreen("./imgs/winston_growl.gif");
+                game.delay(3000);
             }
 
             else if (enemyMove.equals("Sword")){
                 game.displayScreen("./imgs/winston_sword");
+                game.delay(3000);
             }
 
             else if (enemyMove.equals("Avada")){
                 game.displayScreen("./imgs/winston_avada.gif");
+                game.delay(3000);
             }
             else if (enemyMove.equals("TNT")){
                 game.displayScreen("./imgs/winston_TNT.gif");
+                game.delay(3000);
             }
 
             if  (winston.bossStage() == 1){
                 game.displayText("OH NO! Winston leveled up to boss stage 2!");
+                game.delay(3000);
             }
 
            
