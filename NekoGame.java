@@ -6,178 +6,500 @@ public class NekoGame {
 
     }
 
-    public static boolean levelOne(Engine game, Player nemo, Enemy winston){
-        game.startKeyCheckLoop();
-        game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
-        game.playMusic("./audios/fight.wav", 120, true, 1);
-        game.displayScreen("./imgs/9.gif");
-
+    public static void levelOne(Engine game, Player nemo, Enemy winston){
+        boolean fightWon = false;
         
-        game.startKeyCheckLoop();
-        game.displayScreen("./imgs/15.gif");
-        game.displayText("Player Health: " + nemo.getHealth());
-        
-        System.out.println("Enemy one is winston");
-
-        String enemyMove = "";
-        String playerMove = "";
-
-        while (!(nemo.isDefeated() || winston.isDefeated())){
-            game.displayText("Player Turn");
-            playerMove = nemo.makeMove(winston, game);
-
-            if (playerMove.equals("Scratch")){
-                game.displayScreen("./imgs/1nemo_scratch.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-                
-            }
-
-            else if (playerMove.equals("Bite")){
-                game.displayScreen("./imgs/1nemo_bite.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            else if (playerMove.equals("Pounce")){
-                game.displayScreen("./imgs/1nemo_pounce.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-
-            game.displayText("Enemy Turn");
-            enemyMove = winston.makeMove(nemo, game);
-            if (enemyMove.equals("Scratch")){
-                game.displayScreen("./imgs/imgs/winston_scratch.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            else if (enemyMove.equals("Pounce")){
-                game.displayScreen("./imgs/1winston_pounce.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            else if (enemyMove.equals("Growl")){
-                game.displayScreen("./imgs/winston_growl.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            else if (enemyMove.equals("Sword")){
-                game.displayScreen("./imgs/winston_sword");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            else if (enemyMove.equals("Avada")){
-                game.displayScreen("./imgs/winston_avada.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-            else if (enemyMove.equals("TNT")){
-                game.displayScreen("./imgs/winston_TNT.gif");
-                game.delay(3000);
-                game.displayScreen("./imgs/15.gif");
-            }
-
-            if  (winston.bossStage() == 1){
-                game.displayText("OH NO! Winston leveled up to boss stage 2!");
-                game.delay(3000);
-                game.displayScreen("");
-            }
-
-           
+            while (!fightWon){
+            nemo.setHealth(100);
+            game.startKeyCheckLoop();
+            game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+            game.playMusic("./audios/fight.wav", 120, true, 1);
+            game.displayScreen("./imgs/9.gif");
 
             
-            game.displayEnemyHealth(winston.getHealth());
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/15.gif");
+            game.displayText("Player Health: " + nemo.getHealth());
+            
+            System.out.println("Enemy one is winston");
+
+            String enemyMove = "";
+            String playerMove = "";
+
+            while (!(nemo.isDefeated() || winston.isDefeated())){
+                game.displayText("Player Turn");
+                playerMove = nemo.makeMove(winston, game);
+
+                if (playerMove.equals("Scratch")){
+                    game.displayScreen("./imgs/nemo1.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                    
+                }
+
+                else if (playerMove.equals("Bite")){
+                    game.displayScreen("./imgs/nemo4.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                else if (playerMove.equals("Pounce")){
+                    game.displayScreen("./imgs/nemo7.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+
+                game.displayText("Enemy Turn");
+                enemyMove = winston.makeMove(nemo, game);
+                if (enemyMove.equals("Scratch")){
+                    game.displayScreen("./imgs/imgs/winston_scratch.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                else if (enemyMove.equals("Pounce")){
+                    game.displayScreen("./imgs/1winston_pounce.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                else if (enemyMove.equals("Growl")){
+                    game.displayScreen("./imgs/winston_growl.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                else if (enemyMove.equals("Sword")){
+                    game.displayScreen("./imgs/winston_sword");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                else if (enemyMove.equals("Avada")){
+                    game.displayScreen("./imgs/winston_avada.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+                else if (enemyMove.equals("TNT")){
+                    game.displayScreen("./imgs/winston_TNT.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/15.gif");
+                }
+
+                if  (winston.bossStage() == 1){
+                    game.displayText("OH NO! Winston leveled up to boss stage 2!");
+                    game.stopMusicWithFadeOut("./audios/fight.wav",0);
+                    game.playMusic("./audios/boss1.wav", 25, false, 1.0);
+                    game.displayScreen("./imgs/boss1.gif");
+                    game.delay(25000);
+                    game.playMusic("./audios/fight.wav", 25, false, 1.0);
+                }
+
+            
+
+                
+                game.displayEnemyHealth(winston.getHealth());
+                game.displayPlayerHealth(nemo.getHealth());
+                nemo.reduceCooldowns();
+                winston.reduceCooldowns();
+
+
+            }
+
+            fightWon = winston.isDefeated();
+            //cut-scene 2
+            game.stopMusicWithFadeOut("./audios/fight.wav", 0);
+            game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
+
+            if (fightWon){
+                game.displayScreen("./imgs/28.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/29.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/30.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/31.gif");
+
+            }
+
+            else{
+                //lose cut scene
+                game.displayScreen("./imgs/33.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/34.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/35.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/36.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/37.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/38.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/39.gif");
+                game.startKeyCheckLoop();
+                nemo.setHealth(100);
+
+            }
+        }
+
+    }
+
+    public static void levelTwo(Engine game, Player nemo, Enemy rosie){
+        boolean fightWon = false;
+            while (!fightWon){
+            nemo.setHealth(100);
+            game.startKeyCheckLoop();
+            game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+            game.playMusic("./audios/fight.wav", 120, true, 1);
+            game.displayScreen("./imgs/53.gif");
+
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/54.gif");
+            
+            System.out.println("Enemy two is rosie");
+
+            String enemyMove = "";
+            String playerMove = "";
+
+            while (!(nemo.isDefeated() || rosie.isDefeated())){
+                game.displayText("Player Turn");
+                playerMove = nemo.makeMove(rosie, game);
+
+                if (playerMove.equals("Scratch")){
+                    game.displayScreen("./imgs/nemo2.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (playerMove.equals("Bite")){
+                    game.displayScreen("./imgs/nemo5.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (playerMove.equals("Pounce")){
+                    game.displayScreen("./imgs/nemo6.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+
+                game.displayText("Enemy Turn");
+                enemyMove = rosie.makeMove(nemo, game);
+                if (enemyMove.equals("Claw Swipe")){
+                    game.displayScreen("./imgs/rosie_claw.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (enemyMove.equals("Furious Charge")){
+                    game.displayScreen("./imgs/rosie_charge.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (enemyMove.equals("Intimidate")){
+                    game.displayScreen("./imgs/rosie_intimidate.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (enemyMove.equals("Box Punch")){
+                    game.displayScreen("./imgs/rosie_punch.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                else if (enemyMove.equals("Fireball")){
+                    game.displayScreen("./imgs/rosie_fireball.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+                else if (enemyMove.equals("Attack")){
+                    game.displayScreen("./imgs/rosie_attack.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/54.gif");
+                }
+
+                if  (rosie.bossStage() == 1){
+                    game.displayText("OH NO! Rosie leveled up to boss stage 2!");
+                    game.delay(3000);
+                    game.stopMusicWithFadeOut("./audios/fight.wav",0);
+                    game.playMusic("./audios/boss2.wav", 25, false, 1.0);
+                    game.displayScreen("./imgs/boss2.gif");
+                    game.delay(25000);
+                    game.playMusic("./audios/fight.wav", 25, false, 1.0);
+
+                }
+
+            
+
+            
+            game.displayEnemyHealth(rosie.getHealth());
             game.displayPlayerHealth(nemo.getHealth());
-            nemo.reduceCooldowns();
-            winston.reduceCooldowns();
 
+            }
+
+            fightWon = rosie.isDefeated();
+            
+            if (fightWon){
+                game.displayScreen("./imgs/63.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/64.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/65.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/66.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/67.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/68.gif");
+
+
+            }
+
+            else {
+                game.displayScreen("./imgs/69.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/70.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/71.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/72.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/73.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/74.gif");
+                nemo.setHealth(100);
+
+
+            }
+
+        }
+    }
+
+    private static void levelThree(Engine game, Player nemo, Enemy luna){
+        boolean fightWon = false;
+        while (!fightWon){
+            nemo.setHealth(100);
+            game.startKeyCheckLoop();
+            game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
+            game.playMusic("./audios/fight.wav", 120, true, 1);
+            game.displayScreen("./imgs/88.gif");
+
+            game.startKeyCheckLoop();
+            game.displayScreen("./imgs/89.gif");
+            
+            System.out.println("Enemy three is luna");
+
+            String enemyMove = "";
+            String playerMove = "";
+
+            while (!(nemo.isDefeated() || luna.isDefeated())){
+                game.displayText("Player Turn");
+                playerMove = nemo.makeMove(luna, game);
+
+                if (playerMove.equals("Scratch")){
+                    game.displayScreen("./imgs/nemo3.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (playerMove.equals("Bite")){
+                    game.displayScreen("./imgs/nemo6.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (playerMove.equals("Pounce")){
+                    game.displayScreen("./imgs/nemo9.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+
+                game.displayText("Enemy Turn");
+                enemyMove = luna.makeMove(nemo, game);
+                if (enemyMove.equals("Arrow")){
+                    game.displayScreen("./imgs/luna_arrow.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (enemyMove.equals("Banana")){
+                    game.displayScreen("./imgs/luna_banana.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (enemyMove.equals("Eagle")){
+                    game.displayScreen("./imgs/luna_eagle.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (enemyMove.equals("Hypnotize")){
+                    game.displayScreen("./imgs/luna_hypnotize.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                else if (enemyMove.equals("Storm")){
+                    game.displayScreen("./imgs/luna_storm.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+                else if (enemyMove.equals("Watergun")){
+                    game.displayScreen("./imgs/luna_watergun.gif");
+                    game.delay(3000);
+                    game.displayScreen("./imgs/89.gif");
+                }
+
+                if  (luna.bossStage() == 1){
+                    game.displayText("OH NO! Luna leveled up to boss stage 2!");
+                    game.delay(3000);
+                    game.stopMusicWithFadeOut("./audios/fight.wav",0);
+                    game.playMusic("./audios/boss3.wav", 25, false, 1.0);
+                    game.displayScreen("./imgs/boss3.gif");
+                    game.delay(25000);
+                    game.playMusic("./audios/fight.wav", 25, false, 1.0);
+                
+                }
+
+            
+
+            
+            game.displayEnemyHealth(luna.getHealth());
+            game.displayPlayerHealth(nemo.getHealth());
+
+            }
+
+            fightWon = luna.isDefeated();
+            
+            if (fightWon){
+                game.displayScreen("./imgs/98.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/99.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/100.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/101.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/102.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/103.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/104.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/105.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/106.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/107.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/108.gif");
+
+                game.startKeyCheckLoop();
+                
+                game.playMusic("./audios/start_music.wav", 120, true, 1.0);
+                game.displayScreen("./imgs/109.gif");
+                game.stopMusicWithFadeOut("./audios/start_music.wav", 0);
+
+                game.startKeyCheckLoop();
+                return;
+
+            }
+
+            else {
+                game.displayScreen("./imgs/111.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/112.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/113.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/114.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/115.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/116.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/117.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/118.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/119.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/120.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/121.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/122.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/123.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/124.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/125.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/126.gif");
+
+                game.startKeyCheckLoop();
+                game.displayScreen("./imgs/127.gif");
+
+                nemo.setHealth(100);
+
+
+            }
 
         }
 
-        return winston.isDefeated();
-    }
-
-    public static boolean levelTwo(Engine game, Player nemo, Enemy rosie){
-        game.startKeyCheckLoop();
-        game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
-        game.playMusic("./audios/fight.wav", 120, true, 1);
-        game.displayScreen("./imgs/.gif");
-
-        game.displayText("Player Health: " + nemo.getHealth());
-        game.startKeyCheckLoop();
-        game.displayScreen("./imgs/10.gif");
         
-        System.out.println("Enemy one is winston");
-
-        String enemyMove = "";
-        String playerMove = "";
-
-        while (!(nemo.isDefeated() || rosie.isDefeated())){
-            game.displayText("Player Turn");
-            playerMove = nemo.makeMove(rosie, game);
-
-            if (playerMove.equals("Scratch")){
-                game.displayScreen(null);
-            }
-
-            else if (playerMove.equals("Bite")){
-                game.displayScreen(null);
-            }
-
-            else if (playerMove.equals("Pounce")){
-                game.displayScreen(null);
-            }
-
-
-            game.displayText("Enemy Turn");
-            enemyMove = rosie.makeMove(nemo, game);
-            if (enemyMove.equals("Claw Swipe")){
-                game.displayScreen("");
-            }
-
-            else if (enemyMove.equals("Furious Charge")){
-                game.displayScreen(null);
-            }
-
-            else if (enemyMove.equals("Intimidate")){
-                game.displayScreen(null);
-            }
-
-            else if (enemyMove.equals("Box Punch")){
-                game.displayScreen(null);
-            }
-
-            else if (enemyMove.equals("Fireball")){
-                game.displayScreen(null);
-            }
-            else if (enemyMove.equals("Attack")){
-                game.displayScreen(null);
-            }
-
-            if  (rosie.bossStage() == 1){
-                game.displayVideo("");
-            }
-
-        
-
-        
-        game.displayEnemyHealth(rosie.getHealth());
-        game.displayPlayerHealth(nemo.getHealth());
-
-        }
-
-        return rosie.isDefeated();
-    }
-
-    private boolean levelThree(Engine game, Player nemo, Enemy luna){
-
-        return luna.isDefeated();
 
     }
 
@@ -212,9 +534,12 @@ public class NekoGame {
 
         //enemy 3
         Enemy luna = new Enemy("Luna", 150, game);
-        luna.addAbility("Hiss", 10, 20, 1, 0.1);
-        luna.addAbility("Shadow Leap", 20, 30, 3, 0.25);
-        luna.addAbility("Claw", 15, 25, 2, 0.2);
+        luna.addAbility("Water Gun", 10, 20, 1, 0.1);
+        luna.addAbility("Eagle", 20, 30, 3, 0.25);
+        luna.addAbility("Arrow", 15, 25, 2, 0.2);
+        luna.addAbility("Hypnotize", 50, 70, 4, 0.3);
+        luna.addAbility("Banana", 50, 60, 3, 0.25);
+        luna.addAbility("Storm", 45, 58, 2, 0.1);
     
         //start game
         game.playMusic("./audios/start_music.wav", 120, true, 1);
@@ -224,8 +549,24 @@ public class NekoGame {
 
         //First cutscene: introduction to cafe
         game.playMusic("./audios/cut_scenes.wav", 120, false,1);
+        game.displayScreen("./imgs/t1.gif");
         
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/t2.gif");
 
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/t3.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/t4.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/t5.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/t6.gif");
+        
+        game.startKeyCheckLoop();
         game.displayScreen("./imgs/1.gif");
         
         game.startKeyCheckLoop();
@@ -250,47 +591,13 @@ public class NekoGame {
         game.displayScreen("./imgs/8.gif");
 
         //Fight Scene Starts level One
-        boolean fightWon = levelOne(game, nemo, winston);
-        
-        //cut-scene 2
-        game.stopMusicWithFadeOut("./audios/fight.wav", 0);
-        game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
+        levelOne(game, nemo, winston);
 
-        if (fightWon){
-            game.displayScreen("./imgs/28.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/29.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/30.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/31.gif");
-
-        }
-
-        else{
-            //lose cut scene
-            game.displayScreen("./imgs/30.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/31.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/32.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/33.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/34.gif");
-
-            game.startKeyCheckLoop();
-            game.displayScreen("./imgs/36.gif");
-        }
 
         //cut-scene before level 2
+        game.stopMusicWithFadeOut("./audios/fight.wav", 500);
+        game.playMusic("./audios/cut_scenes.wav", 120, false,1);
+        
         game.displayScreen("./imgs/41.gif");
 
         game.startKeyCheckLoop();
@@ -334,26 +641,55 @@ public class NekoGame {
         //level two fight
         game.stopMusicWithFadeOut("./audios/cut_scenes.wav", 0);
         game.playMusic("./audios/fight.wav",120, true, 1.0);
-        game.displayScreen("./imgs/54.gif");
-        game.startKeyCheckLoop();
-        game.displayScreen("./imgs/54.gif");
 
-        fightWon = levelTwo(game, nemo, rosie);
 
-        if (fightWon){
+        levelTwo(game, nemo, rosie);
 
-        }
-
-        else {
-
-        }
 
         //level 3 cut-scene
+        game.stopMusicWithFadeOut("/audios/fight.wav;", 0);
+        game.playMusic("./audios/cut_scenes.wav", 120, true, 1.0);
+
+        game.displayScreen("./imgs/76.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/77.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/78.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/79.gif");
+
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/80.gif");
+
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/81.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/82.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/83.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/85.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/86.gif");
+
+        game.startKeyCheckLoop();
+        game.displayScreen("./imgs/87.gif");
+
 
         //level 3 fight
         game.playMusic("./audios/fight.wav",120, true, 1.0);
-        game.displayScreen("");
-        //fightWon = levelThree(game, nemo, luna);
+        levelThree(game, nemo, luna);
+
+        return;
 
 
 
